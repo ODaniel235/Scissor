@@ -11,8 +11,7 @@ interface Params {
 
 const RedirectPage = () => {
   const { toast } = useToast();
-  const { domainUrl } = useParams<Params>();
-  const navigate = useNavigate();
+  const { domainUrl } = useParams()
 
   useEffect(() => {
     const redirect = async () => {
