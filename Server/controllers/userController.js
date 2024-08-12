@@ -1,7 +1,7 @@
 //Imports
 import user from "../schemas/user.js";
 import bcrypt from "bcryptjs";
-import SignToken from "../Utils/Helpers/signToken.js";
+import SignToken from "../utils/helpers/signToken.js";
 import linkModel from "../schemas/link.js";
 //Signup Controller
 export const Signup = async (req, res) => {
