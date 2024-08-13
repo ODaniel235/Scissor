@@ -9,6 +9,13 @@ interface ViewAccountLinksProps {
   open: boolean;
   setOpenChange: (e: boolean) => void;
 }
+type TruncateText = (text: string, limit: number) => string;
+const truncateText: TruncateText = (text, limit) => {
+  if (text.length > limit) {
+    return text.substring(0, limit) + "...";
+  }
+  return text;
+};
 
 const ViewAccountLinks = ({ open, setOpenChange }: ViewAccountLinksProps) => {
   const {
@@ -43,7 +50,7 @@ const ViewAccountLinks = ({ open, setOpenChange }: ViewAccountLinksProps) => {
                   {allMyLinks?.map((link, index) => (
                     <tr key={index} className="border-t border-gray-700">
                       <td className="py-2 flex justify-between">
-                        {link.originalLink}{" "}
+                        {truncateText(link.originalLink, 25)}{" "}
                         <BlueButton
                           buttonText={
                             <img src="/icons/arrow-right.svg" alt="arrow" />
