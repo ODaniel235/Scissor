@@ -15,7 +15,7 @@ server.use(
 );
 server.use(cookieParser());
 const PORT = 8000;
-server.use(express.json());
+server.use(express.json({limit:"10mb"}));
 server.use(userRouter);
 
 server.listen(PORT, () => {
