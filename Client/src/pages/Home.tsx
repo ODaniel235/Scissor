@@ -86,7 +86,7 @@ const Home = () => {
       }
     };
     verify();
-  }, [setUserLoggedIn]);
+  }, []);
 
   // Handle switch to copy from clipboard
   const switchFunction = async (change: boolean) => {

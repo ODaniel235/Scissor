@@ -7,7 +7,20 @@ const UseSession = ({ children }: { children: React.ReactNode }) => {
 
   const { setUserLoggedIn } = useUser();
   const { setAllMyLinks } = useAllUserLinks();
-
+  // Verify user login status on mount
+  useEffect(() => {
+    const verify = async () => {
+      try {
+        const response = await axios.get(
+          "https://scissor-7s2y.onrender.com/verify"
+        );
+        setUserLoggedIn(response.status === 200);
+      } catch {
+        setUserLoggedIn(false);
+      }
+    };
+    verify();
+  }, []);
   useEffect(() => {
     const fetchAllLinks = async () => {
       try {
