@@ -43,7 +43,14 @@ export const createLink = async (req, res) => {
     });
 
     // Respond with the created domain info
-    res.status(200).json({ newDomain });
+    res.status(200).json({
+      newLink: {
+        originalLink: newDomain.originalLink,
+        shortenedLink: newDomain.shortenedLink,
+        qrCodeUrl: newDomain.qrCodeUrl,
+        clicks: newDomain.clicks,
+      },
+    });
   } catch (err) {
     // Handle errors
     res.status(500).json({ error: err.message });

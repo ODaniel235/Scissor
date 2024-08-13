@@ -48,7 +48,9 @@ interface UserLink {
 // Define the Zustand store interface
 interface UseAllUserLinksState {
   allMyLinks: UserLink[]; // Array of user links
-  setAllMyLinks: (array: UserLink[]) => void; // Function to set the links
+  setAllMyLinks: (
+    updater: UserLink[] | ((prevLinks: UserLink[]) => UserLink[])
+  ) => void;
 }
 
 // Create the zustand store
@@ -84,5 +86,12 @@ export const useForm = create<useForm>((set) => ({
 }));
 export const useAllUserLinks = create<UseAllUserLinksState>((set) => ({
   allMyLinks: [],
-  setAllMyLinks: (array) => set({ allMyLinks: array }),
+  setAllMyLinks: (updater) => {
+    set((state) => ({
+      allMyLinks:
+        typeof updater === "function"
+          ? (updater as (prevLinks: UserLink[]) => UserLink[])(state.allMyLinks)
+          : updater,
+    }));
+  },
 }));

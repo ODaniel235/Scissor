@@ -8,7 +8,7 @@ import ViewAccountLinks from "@/components/ViewAccountLinks";
 import ShortenSubmit from "@/components/ShortenSubmit";
 import SignupModal from "@/components/SignupModal";
 import SigninModal from "@/components/SigninModal";
-import { useUser } from "@/store/UserStore";
+import { useAllUserLinks, useUser } from "@/store/UserStore";
 import axios from "axios";
 import Loader from "@/components/Loader";
 
@@ -21,6 +21,12 @@ interface ErrorResponse {
     };
   };
 }
+interface UserLink {
+  originalLink: string;
+  shortenedLink: string;
+  qrCodeUrl: string;
+  clicks: { count: number; country: string }[];
+}
 
 const Home = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -29,6 +35,7 @@ const Home = () => {
   const [submitDialogOpen, setSubmitDialogOpen] = useState<boolean>(false);
   const [isSubmitLoading, setIsSubmitLoading] = useState<boolean>(false);
   const { userLoggedIn, setUserLoggedIn } = useUser();
+  const { setAllMyLinks } = useAllUserLinks();
   const { toast } = useToast();
   const [domain, setDomain] = useState<string>("");
 
@@ -45,7 +52,9 @@ const Home = () => {
         }
       );
       if (response.status === 200) {
-        
+        const newDomain: UserLink = response.data.newLink;
+        setAllMyLinks((prevLinks) => [...prevLinks, newDomain]);
+
         toast({
           title: "Success",
           description: "URL shortened successfully",
