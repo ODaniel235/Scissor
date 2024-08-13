@@ -42,7 +42,7 @@ const UseSession = ({ children }: { children: React.ReactNode }) => {
     };
 
     fetchAllLinks();
-  }, [setAllMyLinks, setUserLoggedIn]); // Ensure these dependencies are correct
+  }, [setUserLoggedIn]); // Ensure these dependencies are correct
 
   return <div className="w-screen h-screen">{children}</div>;
 };
