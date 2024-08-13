@@ -1,4 +1,3 @@
-import React from "react";
 import { create } from "zustand";
 
 // Define the structure of a Click object
@@ -47,7 +46,7 @@ interface UserLink {
 }
 
 // Define the Zustand store interface
-interface useAllUserLinks {
+interface UseAllUserLinksState {
   allMyLinks: UserLink[]; // Array of user links
   setAllMyLinks: (array: UserLink[]) => void; // Function to set the links
 }
@@ -83,7 +82,7 @@ export const useForm = create<useForm>((set) => ({
   setEmail: (e) => set({ email: e }),
   setPassword: (e) => set({ password: e }),
 }));
-export const useAllUserLinks = create<useAllUserLinks>((set) => ({
+export const useAllUserLinks = create<UseAllUserLinksState>((set) => ({
   allMyLinks: [],
-  setAllMyLinks: (array) => set({ allMyLinks: array }), // Update state with the provided array directly
+  setAllMyLinks: (array) => set({ allMyLinks: array }),
 }));

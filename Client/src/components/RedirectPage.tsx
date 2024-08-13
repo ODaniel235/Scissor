@@ -1,13 +1,9 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Loader from "./Loader";
 import { useEffect } from "react";
 import { useToast } from "./ui/use-toast";
 import axios from "axios";
 
-// Define type for params
-interface Params {
-  domainUrl: string;
-}
 
 const RedirectPage = () => {
   const { toast } = useToast();
@@ -17,7 +13,7 @@ const RedirectPage = () => {
     const redirect = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/link/${domainUrl}`
+          `https://scissor-7s2y.onrender.com/link/${domainUrl}`
         );
         if (response.status === 200) {
           const originalLink = response.data.originalLink;

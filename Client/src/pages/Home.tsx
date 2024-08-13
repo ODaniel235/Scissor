@@ -37,7 +37,7 @@ const Home = () => {
     e.preventDefault();
     setIsSubmitLoading(true);
     try {
-      await axios.post("http://localhost:8000/create", {
+      await axios.post("https://scissor-7s2y.onrender.com/create", {
         link: inputValue,
         domain: domain,
       });
@@ -75,7 +75,9 @@ const Home = () => {
   useEffect(() => {
     const verify = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/verify");
+        const response = await axios.get(
+          "https://scissor-7s2y.onrender.com/verify"
+        );
         setUserLoggedIn(response.status === 200);
       } catch {
         setUserLoggedIn(false);

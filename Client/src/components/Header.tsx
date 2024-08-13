@@ -2,7 +2,7 @@ import { useModals, useUser } from "@/store/UserStore";
 import BlueButton from "./BlueButton";
 
 const Header = () => {
-  const { userLoggedIn, setUserLoggedIn } = useUser();
+  const { userLoggedIn } = useUser();
   const { setSignUp, setSignIn } = useModals();
   const logoutFunction = async () => {};
   return (

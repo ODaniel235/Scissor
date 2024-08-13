@@ -33,10 +33,13 @@ const SigninModal = () => {
     }
     setIsLoading(true);
     try {
-      const response = await axios.post("http://localhost:8000/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://scissor-7s2y.onrender.com/login",
+        {
+          email,
+          password,
+        }
+      );
       if (response.status !== 200) {
         toast({
           variant: "destructive",
@@ -56,11 +59,24 @@ const SigninModal = () => {
         });
       }
     } catch (err) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: err?.response.data.error,
-      });
+      // Check if the error is an AxiosError
+      if (axios.isAxiosError(err)) {
+        const errorMessage =
+          err.response?.data?.error || "An unknown error occurred";
+
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: errorMessage,
+        });
+      } else {
+        // Handle non-Axios errors
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "An unexpected error occurred.",
+        });
+      }
     } finally {
       setIsLoading(false);
     }

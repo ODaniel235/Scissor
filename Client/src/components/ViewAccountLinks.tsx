@@ -5,23 +5,6 @@ import AllInfos from "./AllInfos";
 import { useAllUserLinks, useUserLinks } from "@/store/UserStore";
 import QRCode from "qrcode.react";
 
-// Define types for clarity
-interface Click {
-  count: number;
-  country: string;
-}
-
-interface Link {
-  originalLink: string;
-  shortenedLink: string;
-  qrCodeUrl: string;
-  clicks: Click[];
-}
-
-interface AllMyLinks {
-  allLinks: Link[];
-}
-
 interface ViewAccountLinksProps {
   open: boolean;
   setOpenChange: (e: boolean) => void;
@@ -40,16 +23,13 @@ const ViewAccountLinks = ({ open, setOpenChange }: ViewAccountLinksProps) => {
   const [modal, setModal] = useState(false);
   const [header, setHeader] = useState("");
 
-  // Safely access allLinks with default empty array if undefined
-  const links = allMyLinks?.allLinks || [];
-
   return (
     <>
       <Dialog open={open} onOpenChange={setOpenChange}>
         <DialogContent className="bg-[#0B101B] opacity-100 text-white shadow-2xl">
           <DialogTitle>Your Shortened Links</DialogTitle>
           <div className="mt-4">
-            {links.length > 0 ? (
+            {allMyLinks?.length > 0 ? (
               <table className="w-full text-left">
                 <thead>
                   <tr>
@@ -60,7 +40,7 @@ const ViewAccountLinks = ({ open, setOpenChange }: ViewAccountLinksProps) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {links.map((link, index) => (
+                  {allMyLinks?.map((link, index) => (
                     <tr key={index} className="border-t border-gray-700">
                       <td className="py-2 flex justify-between">
                         {link.originalLink}{" "}
@@ -100,8 +80,8 @@ const ViewAccountLinks = ({ open, setOpenChange }: ViewAccountLinksProps) => {
                         />
                       </td>
                       <td className="py-2 px-4 hidden md:visible">
-                        {link.clicks.length > 0 ? (
-                          link.clicks.map((click, idx: string) => (
+                        {link?.clicks.length > 0 ? (
+                          link?.clicks.map((click, idx) => (
                             <div key={idx}>
                               <p>
                                 {click.count} clicks from {click.country}

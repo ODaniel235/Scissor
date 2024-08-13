@@ -4,7 +4,7 @@ import App from "./App.tsx";
 
 import "./index.css";
 import { Toaster } from "./components/ui/toaster.tsx";
-import UseSession from "./UseSession.tsx";
+import UseSession from "./hooks/UseSession.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

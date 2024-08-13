@@ -1,4 +1,4 @@
-import { useForm, useModals, useUser } from "@/store/UserStore";
+import { useForm, useModals } from "@/store/UserStore";
 import Form from "./Form";
 import { Dialog, DialogContent } from "./ui/dialog";
 import React, { useState } from "react";
@@ -9,7 +9,6 @@ const SignupModal = () => {
   const { signUpOpen, setSignUp } = useModals();
   const [isLoading, setIsLoading] = useState(false);
   const { email, setEmail, password, setPassword } = useForm();
-  const { setUserId, setUserLoggedIn } = useUser();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const emailValid = /^[\w._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
@@ -31,10 +30,13 @@ const SignupModal = () => {
     }
     setIsLoading(true);
     try {
-      const response = await axios.post("http://localhost:8000/signup", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://scissor-7s2y.onrender.com/signup",
+        {
+          email,
+          password,
+        }
+      );
       if (response.status !== 201) {
         toast({
           variant: "destructive",
@@ -52,11 +54,24 @@ const SignupModal = () => {
         });
       }
     } catch (err) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: err?.response.data.error,
-      });
+      // Check if the error is an AxiosError
+      if (axios.isAxiosError(err)) {
+        const errorMessage =
+          err.response?.data?.error || "An unknown error occurred";
+
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: errorMessage,
+        });
+      } else {
+        // Handle non-Axios errors
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "An unexpected error occurred.",
+        });
+      }
     } finally {
       setIsLoading(false);
     }

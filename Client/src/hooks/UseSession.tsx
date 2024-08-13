@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useAllUserLinks, useUser } from "./store/UserStore";
+import { useAllUserLinks, useUser } from "../store/UserStore";
 import axios from "axios";
 
 const UseSession = ({ children }: { children: React.ReactNode }) => {
@@ -12,10 +12,12 @@ const UseSession = ({ children }: { children: React.ReactNode }) => {
     const fetchAllLinks = async () => {
       try {
         // Assuming you might have a better method to determine if the user is logged in
-        const response = await axios.get("http://localhost:8000/all");
+        const response = await axios.get(
+          "https://scissor-7s2y.onrender.com/all"
+        );
 
         if (response.status === 200) {
-          setAllMyLinks(response.data);
+          setAllMyLinks(response.data.allLinks);
           setUserLoggedIn(true); // Set userLoggedIn state to true upon successful fetch
         }
 
