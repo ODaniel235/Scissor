@@ -52,7 +52,7 @@ const ViewAccountLinks = ({ open, setOpenChange }: ViewAccountLinksProps) => {
                             setHeader(`Shortened Link ${index + 1}`);
                             setOriginalLink(link.originalLink);
                             setShortenedLink(
-                              `domain-name.com/${link.shortenedLink}`
+                              `https://scissor-eight.vercel.app/${link.shortenedLink}`
                             );
                             setQrCode(link.qrCodeUrl);
                             setQrCodeIndex(index.toString());
