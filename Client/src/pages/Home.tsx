@@ -37,10 +37,19 @@ const Home = () => {
     e.preventDefault();
     setIsSubmitLoading(true);
     try {
-      await axios.post("https://scissor-7s2y.onrender.com/create", {
-        link: inputValue,
-        domain: domain,
-      });
+      const response = await axios.post(
+        "https://scissor-7s2y.onrender.com/create",
+        {
+          link: inputValue,
+          domain: domain,
+        }
+      );
+      if (response.status === 200) {
+        toast({
+          title: "Success",
+          description: "URL shortened successfully",
+        });
+      }
       setDomain("");
       setInputValue("");
       setSubmitDialogOpen(false);
