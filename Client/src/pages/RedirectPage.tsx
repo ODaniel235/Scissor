@@ -1,13 +1,13 @@
-import { useParams } from "react-router-dom";
-import Loader from "./Loader";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
+import Loader from "@/components/Loader";
 import axios from "axios";
-
 
 const RedirectPage = () => {
   const { toast } = useToast();
-  const { domainUrl } = useParams()
+  const { domainUrl } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const redirect = async () => {
@@ -32,6 +32,7 @@ const RedirectPage = () => {
             title: "Error",
             description: "Link does not exist",
           });
+          navigate("/home");
         }
       } catch (err) {
         // Handle different error cases
@@ -41,6 +42,7 @@ const RedirectPage = () => {
           description: "An error occurred while trying to redirect.",
         });
         console.error(err);
+        navigate("/home");
       }
     };
     redirect();
